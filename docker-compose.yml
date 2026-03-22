@@ -2,7 +2,7 @@ version: '1.0'
 
 services:
   app:
-    build: .
+    image: rutikadockerhub/notesapp:latest
     ports:
       - "3000:3000"
     depends_on:
