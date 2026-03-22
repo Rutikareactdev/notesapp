@@ -4,26 +4,28 @@ import { S3Client, DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 
 
-const accessKeyId = process.env.AWS_ACCESS_KEY;
-const secretAccessKey = process.env.AWS_SECRET_KEY;
 
-if (!accessKeyId || !secretAccessKey) {
-  throw new Error("Missing AWS credentials");
-}
-
-const s3Client = new S3Client({
-  region: "ap-south-1",
-  credentials: {
-    accessKeyId,
-    secretAccessKey
-  }
-});
 
 
 
 
 export async function POST(req: Request) {
   try {
+
+    const accessKeyId = process.env.AWS_ACCESS_KEY;
+    const secretAccessKey = process.env.AWS_SECRET_KEY;
+
+    if (!accessKeyId || !secretAccessKey) {
+      throw new Error("Missing AWS credentials");
+    }
+
+    const s3Client = new S3Client({
+      region: "ap-south-1",
+      credentials: {
+        accessKeyId,
+        secretAccessKey
+      }
+    });
 
     const formData = await req.formData()
     const files = formData.getAll("file") as File[]
